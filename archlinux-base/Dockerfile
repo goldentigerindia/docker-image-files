@@ -1,6 +1,7 @@
+#docker build  . -t docker.io/goldentigerindia/archlinux-base:latest
 FROM archlinux:latest
 USER root
-ARG USER_NAME="goldentigerindia"
+ARG USER_NAME="admin"
 ARG USER_PASSWORD="Passw0rd"
 ENV USER_NAME $USER_NAME
 ENV USER_PASSWORD $USER_PASSWORD
@@ -30,7 +31,7 @@ ENV ZSH_THEME agnoster
 # run the installation script  
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 SHELL ["/usr/bin/zsh", "-c"]
-RUN cd /home/goldentigerindia && git clone https://aur.archlinux.org/anaconda && cd anaconda && makepkg -si --noconfirm && cd .. && rm -rf anaconda
-RUN source /opt/anaconda/bin/activate root && conda init zsh
+RUN cd /home/$USER_NAME && git clone https://aur.archlinux.org/miniconda3 && cd miniconda3 && makepkg -si --noconfirm && cd .. && rm -rf miniconda3
+RUN source /opt/miniconda3/bin/activate root && conda init zsh
 RUN cat ~/.zshrc
 
