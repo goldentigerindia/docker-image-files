@@ -36,7 +36,9 @@ USER root
 RUN source /opt/miniconda3/bin/activate root && conda init zsh
 RUN mkdir -p ~/jupyter
 RUN echo "PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/jupyterhub/bin:$PATH" >> /root/.zshrc
+RUN npm install -g tslab
 USER $USER_NAME
+RUN sudo tslab install --python=/opt/jupyterhub/bin/python3
 RUN echo "PATH=/home/$USER_NAME/.local/bin:$PATH" >> /home/$USER_NAME/.zshrc
 RUN mkdir -p /home/$USER_NAME/samples
 COPY samples/ /home/$USER_NAME/samples/
